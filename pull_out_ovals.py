@@ -2,7 +2,7 @@ import sys
 new_ovals = ''
 file1 = open(sys.argv[1],'r')
 for line in file1:
-	if '//' in line:
+	if '**' in line:
 		for char in line:
 			if (char.isdigit()) or (char==','):
 				new_ovals+=char
