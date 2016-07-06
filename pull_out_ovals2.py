@@ -7,7 +7,7 @@ for line in file1:
 			if (char.isdigit()) or (char==','):
 				new_ovals+=char
 		new_ovals+=','
-file2 = open("7_small_plate_partial_macro.ijm",'r')
+file2 = open("3_small_plate_partial_macro.ijm",'r')
 buffer = ''
 for line in file2:
     if "newArray" not in line:
