@@ -10,4 +10,4 @@ for line in file1:
 file2 = open('extracted_ovals'+sys.argv[1][-5]+'.txt','w')
 file2.write(new_ovals)
 file1.close()
-file2.close()
+file2.close() 
