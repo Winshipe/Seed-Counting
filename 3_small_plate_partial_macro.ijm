@@ -10,8 +10,8 @@ function count_seeds(file_name,ovals) {
         //print(file_path);
         //print(file_name);
         open( file_name);/*               v      1500 DPI       v v 2000 DPI             v  v  500 DPI            v v      1000 DPI        v*/
-        makeLine(2256, 480, 2256, 3336);//1848, 648, 1872, 3576);//2496, 352, 2496, 4000);//(480, 1116, 1356, 312);//1080, 2400, 2448, 408);//Scale
-        run("Set Scale...", "known=60 unit=unit");
+        //makeLine(2256, 480, 2256, 3336);//1848, 648, 1872, 3576);//2496, 352, 2496, 4000);//(480, 1116, 1356, 312);//1080, 2400, 2448, 408);//Scale
+        run("Set Scale...", "distance=2880 known=60 unit=unit");
         setAutoThreshold("Default");
         setThreshold(50, 140);
         //waitForUser("Say CHEESE!");
