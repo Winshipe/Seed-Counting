@@ -105,15 +105,7 @@ def find_centers(arr):#,x_sf,y_sf):
         warnings.warn("Template is not properly aligned in scanner!  Double check all ROIs for image: "+img_name.split('/')[-1],RuntimeWarning)
     add = [3300,3250]#[3300*y_sf,3250*x_sf]
     count = 0
-#    img = im.open("C:/Users/Eamon/Documents/ShiuLab/counting_seeds/seed_images/new_images/test_images/1200/LowSeeCount_plate_1200_020.jpg")
-    img = im.open("C:/Users/Eamon/Documents/ShiuLab/counting_seeds/seed_images/2_1-13031.jpg")
-    draw = imd.Draw(img)
-#    print(arr.shape,target_regions)
-#    for pair in target_regions:
-#        pair.reverse()
-#        a = ','.join([str(pair[0]),str(pair[1]),str(add[0]),str(add[1])])
-#        print('makeRectangle('+a+');')
-#        print("waitForUser('take a look at this');")
+
     for pair in target_regions:
         count+=1
 #        pair.reverse()
@@ -134,16 +126,8 @@ def find_centers(arr):#,x_sf,y_sf):
             cp = [0,0]
             print("Center acquisition failed on plate: ",count)
             print("All values in region were identical, likely 0")
-        centers.append(cp)
-        rad = find_radius(roi)
-        radii.append(rad)
-#        draw.ellipse((cp[0]-10,cp[1]-10,cp[0]+10,cp[1]+10),fill='red')
-        draw.ellipse((cp[0]-rad,cp[1]-rad,cp[0]+rad,cp[1]+rad),outline='red')
         pair.reverse()
-        draw.rectangle((pair[0],pair[1],pair[0]+3250,pair[1]+3300),outline='red')
-    img.show()
-    img.save("C:/Users/Eamon/Documents/ShiuLab/counting_seeds/catchment_test_4.jpg")
-    del draw
+    
     return centers,radii
 def make_ovals(centers,radii):
     '''ImageJ makes ovals by defining the upper left hand corner and the width and height from that'''
@@ -160,6 +144,7 @@ def make_ovals(centers,radii):
 #    print(len(ovals)/4)
     return ovals
 def edit_file(file,arg,new_ovals):
+    '''Does what it says on the tin.  It will edit a file containing the lines "newArray" or "Set Scale..." and update their values'''
     try:    
         assert new_ovals
     except AssertionError:
@@ -181,16 +166,16 @@ def edit_file(file,arg,new_ovals):
     return buffer
 def main():
     global img_name
-    img_name = "C:/Users/Eamon/Documents/ShiuLab/counting_seeds/seed_images/new_images/2_1-59/8bit_2_1-13031.bmp"#1500/8bit_densities_test_1500_1_12013.bmp"#test_images/1200/8bit_LowSeeCount_plate_1200_020.bmp")#sys.argv[1])
+    img_name = sys.argv[1]
     arr = open_file(img_name)
     if not None in list(arr):
         centers,radii = find_centers(arr)#,x_sf,y_sf)
         new_ovals = make_ovals(centers,radii)
-        file = open("C:/ImageJ/macros/0_test_ovals.ijm")#sys.argv[2]")
+        file = open(sys.argv[2],'r')
         dpi = 1200#sys.argv[3]
         buffer = edit_file(file,dpi,new_ovals)
         file.close()
-        file = open("C:/ImageJ/macros/0_test_ovals.ijm",'w')
+        file = open(sys.argv[2],'w')
         file.write(buffer)
         file.close()
 main()
